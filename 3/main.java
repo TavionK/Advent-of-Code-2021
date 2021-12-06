@@ -67,6 +67,7 @@ public class main{
 		int ans = ga * ep;
 		System.out.println("answer to part 1 " + ans);
 		System.out.println("---------------------------------------------------------------------");
+		
 		//Oxygen generator and the other thing
 		ArrayList<String> oxy = new ArrayList<String>();
 		for(int i =0; i <lines.size(); i++){
@@ -76,88 +77,71 @@ public class main{
 		for(int i = 0; i < oxy.get(0).length(); i++){
 			//index position
 			int ones = 0;
-			int zeros = 0;
-			for(int j = 0; j < oxy.size(); j++){
-				//index lines
-				int temp = Character.getNumericValue(oxy.get(j).charAt(i));
-				if(temp > 0){
+			for(String s : oxy){
+				if (s.charAt(i) == '1'){
 					ones++;
 				}
+			}
+			int zeros = oxy.size() - ones;
+			ArrayList<String> newa = new ArrayList<String>();
+			for (String s : oxy){
+				if (ones >= zeros){
+					if (s.charAt(i) == '1'){
+						newa.add(s);
+					}
+				}
 				else{
-					zeros++;
-				}
-			}
-			if (ones>zeros || ones==zeros){
-				//get rid of all those that have a 0 in this place
-				for(int j = 0; j < oxy.size(); j++){
-					int temp = Character.getNumericValue(oxy.get(j).charAt(i));
-					if(temp == 0){
-						oxy.remove(j);
-						j = 0;
+					if (s.charAt(i) == '0'){
+						newa.add(s);
 					}
 				}
 			}
-			else{
-				//get rid of all those that have a 1 in this place
-				for(int j = 0; j < oxy.size(); j++){
-					int temp = Character.getNumericValue(oxy.get(j).charAt(i));
-					if(temp == 1){
-						oxy.remove(j);
-						j = 0;
-					}
-				}
+			oxy = newa;
+			if (oxy.size() ==1){
+				System.out.println(oxy.get(0));
+				break;
 			}
 		}
-		for(int i = 0; i < oxy.size(); i++){
-			System.out.println("The oxygen binary: " + oxy.get(i));
-		}
+			
 		int oxygen = Integer.parseInt(oxy.get(0),2);
 		System.out.println("The oxygen number: " + oxygen);
-//101010100101
-//101011101111
+
+//------------------------------------------------------------------------------------------------------
 
 		// CO2
 		ArrayList<String> carbon = new ArrayList<String>();
 		// System.out.println(lines.size());
-		carbon = lines;
-		for(int i = 0; i < carbon.get(0).length()-2; i++){
+		for(int i =0; i <lines.size(); i++){
+			carbon.add(lines.get(i));
+		}
+		
+		for(int i = 0; i < carbon.get(0).length(); i++){
 			//index position
-			// System.out.println("The number of items " + carbon.size());
 			int ones = 0;
-			int zeros = 0;
-			for(int j = 0; j < carbon.size(); j++){
-				//index lines
-				int temp = Character.getNumericValue(carbon.get(j).charAt(i));
-				if(temp > 0){
+			for(String s : carbon){
+				if (s.charAt(i) == '1'){
 					ones++;
 				}
+			}
+			int zeros = carbon.size() - ones;
+			ArrayList<String> newa = new ArrayList<String>();
+			for (String s : carbon){
+				if (ones >= zeros){
+					if (s.charAt(i) == '0'){
+						newa.add(s);
+					}
+				}
 				else{
-					zeros++;
-				}
-			}
-			if (ones<zeros){
-				//get rid of all those that have a 1 in this place
-				for(int j = 0; j < carbon.size(); j++){
-					int temp = Character.getNumericValue(carbon.get(j).charAt(i));
-					if(temp == 0){
-						carbon.remove(j);
-						j = 0;
+					if (s.charAt(i) == '1'){
+						newa.add(s);
 					}
 				}
 			}
-			else{
-				//get rid of all those that have a 1 in this place
-				for(int j = 0; j < carbon.size(); j++){
-					int temp = Character.getNumericValue(carbon.get(j).charAt(i));
-					if(temp == 1){
-						carbon.remove(j);
-						j = 0;
-					}
-				}
+			carbon = newa;
+			if (carbon.size() ==1){
+				System.out.println(carbon.get(0));
+				break;
 			}
-		}
-		for(int i = 0; i < carbon.size(); i++){
-			System.out.println("The carbon binary: " +carbon.get(i));
 		}
 		int co = Integer.parseInt(carbon.get(0),2);
 		System.out.println("The carbon number: " +co);
